@@ -263,19 +263,33 @@ function addCardTrainer() {
 		const sidebar = document.querySelector(".sorting");
 		sidebar.hidden = false;
 		const storedFilters = JSON.parse(localStorage.getItem("filters"));
-  
-	  storedFilters.forEach((user) => {
-	  const dataClone = trainerTemplate.content.cloneNode(true);
-	  const photoTrainer = user.photo;
-	  const trainerName = `${user["first name"]} ${user["last name"]}`;
-	  dataClone.querySelector(".trainer__img").src = photoTrainer;
-	  dataClone.querySelector(".trainer__name").textContent = trainerName;
-  
-	  const trainerCard = dataClone.querySelector(".trainer");
-	  trainerCard.id = user.id;
-  
-	  trainerContainer.append(dataClone);
-	});
+		if (storedFilters) {
+				storedFilters.forEach((user) => {
+				const dataClone = trainerTemplate.content.cloneNode(true);
+				const photoTrainer = user.photo;
+				const trainerName = `${user["first name"]} ${user["last name"]}`;
+				dataClone.querySelector(".trainer__img").src = photoTrainer;
+				dataClone.querySelector(".trainer__name").textContent = trainerName;
+			
+				const trainerCard = dataClone.querySelector(".trainer");
+				trainerCard.id = user.id;
+			
+				trainerContainer.append(dataClone);
+			  });
+		} else {
+				DATA.forEach((user) => {
+				const dataClone = trainerTemplate.content.cloneNode(true);
+				const photoTrainer = user.photo;
+				const trainerName = `${user["first name"]} ${user["last name"]}`;
+				dataClone.querySelector(".trainer__img").src = photoTrainer;
+				dataClone.querySelector(".trainer__name").textContent = trainerName;
+			
+				const trainerCard = dataClone.querySelector(".trainer");
+				trainerCard.id = user.id;
+			
+				trainerContainer.append(dataClone);
+			  });
+		}
   }
   
   setTimeout(addCardTrainer, 1500);
@@ -341,7 +355,6 @@ function addCardTrainer() {
 				})
 				event.target.classList.add("sorting__btn--active");
 			  trainerContainer.innerHTML = "";
-		
 			  DATA.forEach((user) => {
 				const dataClone = trainerTemplate.content.cloneNode(true);
 				const photoTrainer = user.photo;
